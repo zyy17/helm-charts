@@ -1,6 +1,6 @@
 image:
   # -- The image registry
-  registry: docker.io
+  registry: greptime-registry.cn-hangzhou.cr.aliyuncs.com
   # -- The image repository
   repository: greptime/greptimedb
   # -- The image tag
@@ -13,11 +13,11 @@ additionalLabels: {}
 
 initializer:
   # -- Initializer image registry
-  registry: docker.io
+  registry: greptime-registry.cn-hangzhou.cr.aliyuncs.com
   # -- Initializer image repository
-  repository: greptime/greptimedb-initializer
+  repository: greptime/greptimedb-initializer-dev
   # -- Initializer image tag
-  tag: v0.3.0
+  tag: dev-20250529-1748502016-26fb0d52
 
 base:
   # -- The pod template for base
@@ -1204,6 +1204,52 @@ slowQuery:
 
   # -- The TTL of slow query system table.
   ttl: "30d"
+
+# -- The datanode instance groups configure
+datanodeGroups: []
+  # # -- Custom datanode name
+  # - name: read
+  #   replicas: 1
+
+  #   # -- Extra raw toml config data of datanode.
+  #   config: |
+  #     [[region_engine]]
+  #     [region_engine.mito]
+  #     # Number of region workers
+  #     num_workers = 2
+
+  #   # -- The pod template for datanode.
+  #   template:
+  #     main:
+  #       resources:
+  #         requests:
+  #           cpu: 2000m
+  #           memory: 2048Mi
+  #         limits:
+  #           cpu: 2000m
+  #           memory: 2048Mi
+
+  # # -- Custom datanode name
+  # - name: write
+  #   replicas: 1
+
+  #   # -- Extra raw toml config data of datanode.
+  #   config: |
+  #     [[region_engine]]
+  #     [region_engine.mito]
+  #     # Number of region workers
+  #     num_workers = 2
+
+  #   # -- The pod template for datanode.
+  #   template:
+  #     main:
+  #       resources:
+  #         requests:
+  #           cpu: 2000m
+  #           memory: 2048Mi
+  #         limits:
+  #           cpu: 2000m
+  #           memory: 2048Mi
 
 # -- Deploy grafana dashboards for the grafana dashboard sidecar. https://github.com/grafana/helm-charts/tree/main/charts/grafana#sidecar-for-dashboards
 dashboards:
